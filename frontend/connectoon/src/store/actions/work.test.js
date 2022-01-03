@@ -85,21 +85,30 @@ describe('ActionCreators', () => {
   });
 
   it('\'getRecWorks\' should fetch works correctly', (done) => {
-    const stubWorks = [[stubWork], [stubWork], ''];
+    const stubRecWorksDict = {
+      worklists: [
+        { title: 'Test Works', works: [stubWork] },
+        { title: 'Test Works', works: [stubWork] },
+      ],
+    };
     const spy = jest.spyOn(axios, 'get')
       .mockImplementation((url, params) => {
         return new Promise((resolve, reject) => {
           const result = {
             status: 200,
-            data: stubWorks,
+            data: stubRecWorksDict,
           };
           resolve(result);
         });
       });
+    const stubNewRecWorksDict = [
+      { title: 'Test Works', works: [stubWork] },
+      { title: 'Test Works', works: [stubWork] },
+    ];
     const stubRange = [0, 24];
-    store.dispatch(actionCreators.getRecWorks([stubRange, stubRange, ''])).then(() => {
+    store.dispatch(actionCreators.getRecWorks([stubRange, stubRange])).then(() => {
       const newState = store.getState();
-      expect(newState.work.recommWorks).toEqual(stubWorks);
+      expect(newState.work.recommWorks).toEqual(stubNewRecWorksDict);
       expect(spy).toHaveBeenCalledTimes(1);
       done();
     });

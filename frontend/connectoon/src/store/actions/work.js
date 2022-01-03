@@ -50,7 +50,7 @@ export const getRecWorks_ = (works, listStart) => {
   return {
     type: actionTypes.GET_REC_WORKS,
     listStart,
-    selectedWorks: works,
+    selectedWorks: works.worklists,
   };
 };
 
