@@ -29,9 +29,8 @@ const stubInitialUserState = {
 };
 const stubInitialWorkState = {
   recommWorks: [
-    [{ id: 1 }, { id: 2 }],
-    [{ id: 3 }, { id: 4 }],
-    '',
+    { title: 'test title', works: [{ id: 1 }, { id: 2 }] },
+    { title: 'test title', works: [{ id: 3 }, { id: 4 }] },
   ],
 };
 
@@ -77,36 +76,18 @@ describe('<Recommendation />', () => {
     expect(wrapper.text()).toBe('Please Login!');
   });
 
-  it('should render nothing when recommendation lists are not enough', () => {
-    const stubInitialNoWorkState = {
-      recommWorks: [
-        [{ id: 1 }, { id: 2 }],
-      ],
-    };
-    const noWorkMockStore = getMockStore(stubInitialReviewState, stubInitialTagState, stubInitialUserState, stubInitialNoWorkState);
-    recommendation = (
-      <Provider store={noWorkMockStore}>
-        <ConnectedRouter history={history}>
-          <Switch>
-            <Route path="/" exact render={() => <Recommendation className="recommendation" />} />
-          </Switch>
-        </ConnectedRouter>
-      </Provider>
-    );
-    const component = mount(recommendation);
-    const wrapper = component.find('div.recommendation');
-    expect(wrapper.length).toBe(0);
-  });
-
   it('should render Recommendation', () => {
     const component = mount(recommendation);
-    const wrapper = component.find('.recommendation');
-    expect(wrapper.length).toBe(3);
+    const wrapper = component.find('div.recommendation-page');
+    expect(wrapper.length).toBe(1);
   });
 
   it('should render Recommendation with empty workList', () => {
     const stubInitialWorkStateTest = {
-      recommWorks: [[], [], ''],
+      recommWorks: [
+        { title: 'test title', works: [] },
+        { title: 'test title', works: [] },
+      ],
     };
     const mockStoreTest = getMockStore(stubInitialReviewState, stubInitialTagState, stubInitialUserState, stubInitialWorkStateTest);
     recommendation = (
@@ -157,7 +138,10 @@ describe('<Recommendation />', () => {
       return { id: idx };
     });
     const stubInitialManyWorkState = {
-      recommWorks: [stubWorks, stubWorks, ''],
+      recommWorks: [
+        { title: 'test title', works: stubWorks },
+        { title: 'test title', works: stubWorks },
+      ],
     };
     const manyWorkMockStore = getMockStore(stubInitialReviewState, stubInitialTagState, stubInitialUserState, stubInitialManyWorkState);
     recommendation = (
@@ -171,9 +155,11 @@ describe('<Recommendation />', () => {
     );
     const component = mount(recommendation);
     expect(spyGetRecWorks).toHaveBeenCalledTimes(1);
+    expect(spyGetRecWorks).toHaveBeenCalledWith([[0, 24], [0, 24]]);
     const wrapper = component.find('.spyMore');
     wrapper.at(0).simulate('click');
     wrapper.at(0).simulate('click');
     expect(spyGetRecWorks).toHaveBeenCalledTimes(2);
+    expect(spyGetRecWorks).toHaveBeenLastCalledWith([[24, 44], [24, 24]]);
   });
 });

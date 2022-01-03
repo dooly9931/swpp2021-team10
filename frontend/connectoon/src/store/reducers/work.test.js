@@ -18,7 +18,7 @@ describe('Work Reducer', () => {
       searchedWorks: [[], []],
       selectedWork: null,
       noSuchSelectedWork: false,
-      recommWorks: [[], [], ''],
+      recommWorks: [{ title: '', works: [] }, { title: '', works: [] }],
       works: [],
     });
   });
@@ -77,30 +77,30 @@ describe('Work Reducer', () => {
 
   it('should get recommended works', () => {
     const stubInitialState = {
-      recommWorks: [[], [], ''],
+      recommWorks: [{ title: '', works: [] }, { title: '', works: [] }],
     };
-    const newState = reducer(stubInitialState, {
-      type: actionTypes.GET_REC_WORKS,
-      listStart: [true, true],
-      selectedWorks: [[stubWork], [stubWork], 'dummy'],
-    });
-    expect(newState).toEqual({
-      recommWorks: [[stubWork], [stubWork], 'dummy'],
-    });
+    const stubRecWorks = [
+      { title: 'Test Works', works: [stubWork] },
+      { title: 'Test Works', works: [stubWork] },
+    ];
+    const newState = reducer(stubInitialState, { type: actionTypes.GET_REC_WORKS, selectedWorks: stubRecWorks, listStart: [true, true] });
+    expect(newState.recommWorks).toEqual(stubRecWorks);
   });
 
   it('should return concatenated recommended works', () => {
     const stubInitialState = {
-      recommWorks: [[stubWork], [stubWork], ''],
+      recommWorks: [{ title: '', works: [stubWork] }, { title: '', works: [stubWork] }],
     };
-    const newState = reducer(stubInitialState, {
-      type: actionTypes.GET_REC_WORKS,
-      listStart: [false, true],
-      selectedWorks: [[stubWork, stubWork], [stubWork], 'dummy'],
-    });
-    expect(newState).toEqual({
-      recommWorks: [[stubWork, stubWork, stubWork], [stubWork], 'dummy'],
-    });
+    const stubRecWorks = [
+      { title: 'Test Works', works: [stubWork, stubWork] },
+      { title: 'Test Works', works: [stubWork] },
+    ];
+    const newState = reducer(stubInitialState, { type: actionTypes.GET_REC_WORKS, selectedWorks: stubRecWorks, listStart: [false, true] });
+    const stubNewRecWorks = [
+      { title: 'Test Works', works: [stubWork, stubWork, stubWork] },
+      { title: 'Test Works', works: [stubWork] },
+    ];
+    expect(newState.recommWorks).toEqual(stubNewRecWorks);
   });
 
   it('should get searched works', () => {

@@ -40,25 +40,20 @@ class Recommendation extends Component {
       </div>;
     }
     const { recWorkLists } = this.props;
-    if (recWorkLists.length < 3) {
-      return null;
-    }
     const { subjectRows, worksInRow } = this.state;
     const genreList = <WorkList
-      class="g-wl"
       className="genre-based-work-list"
-      subject="Genre-based recommendation"
-      workList={recWorkLists[0]}
+      subject={recWorkLists[0].title}
+      workList={recWorkLists[0].works}
       rows={subjectRows[0]}
       worksInRow={worksInRow}
       onClickWork={(workId) => this.onClickWork(workId)}
       onClickMore={() => this.onClickMore(0)}
     />;
     const reviewList = <WorkList
-      class="r-wl"
       className="review-based-work-list"
-      subject={recWorkLists[2]}
-      workList={recWorkLists[1]}
+      subject={recWorkLists[1].title}
+      workList={recWorkLists[1].works}
       rows={subjectRows[1]}
       worksInRow={worksInRow}
       onClickWork={(workId) => this.onClickWork(workId)}
