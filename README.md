@@ -1,7 +1,7 @@
 # Connectoon
 
-# How to run  
-## Frontend
+## How to run  
+### Frontend
 
 ```docker
 cd frontend/connectoon
@@ -9,7 +9,7 @@ yarn install
 yarn start
 ```
 
-## Backend
+### Backend
 
 ```docker
 cd backend/connectoon
@@ -20,17 +20,17 @@ python manage.py runserver
 ```
 
 
-# How to test  
-## Frontend  
-### Unit Test
+## How to test  
+### Frontend  
+#### Unit Test
 
 ```docker
 cd frontend/connectoon
 yarn test --coverage --watchAll=false
 ```
 
-## Backend  
-### Unit Test
+### Backend  
+#### Unit Test
 
 ```docker
 cd backend/connectoon
@@ -38,19 +38,19 @@ coverage run --branch --source="." manage.py test
 coverage report
 ```
 
-# How to Deploy
+## How to Deploy
 
-## Frontend
+### Frontend
 
-### Docker & nginx
+#### Docker & nginx
 ```docker
 docker build -t frontend .
 docker run -p 443:443 -v '/etc/letsencrypt:/etc/letsencrypt' --rm -d --name frontend_container frontend
 ```
 
-## Backend
+### Backend
 
-### Docker & uwsgi
+#### Docker & uwsgi
 
 ```docker
 docker build -t backend .
@@ -60,7 +60,7 @@ docker exec -it backend_container /bin/bash # to get into running docker
 ```
 
 
-### make DB
+#### make DB
 
 + go into makeDB folder
 + run ./runserver, ./makeDB respectively
