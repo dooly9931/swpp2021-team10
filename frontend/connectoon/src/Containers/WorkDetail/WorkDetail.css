@@ -1,6 +1,6 @@
 .work-detail {
   width: 1000px;
-  margin: 10px max(calc(50% - 500px), 0px) 10px max(calc(50% - 500px), 0px);
+  margin: 0px max(calc(50% - 500px), 10px) 40px;
 }
 
 .my-review-region {
