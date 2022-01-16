@@ -3,8 +3,8 @@
 echo 'docker stop frontend_container'
 docker stop frontend_container
 
-echo 'docker rm backend_container'
-docker rm backend_container
+echo 'docker stop backend_container'
+docker stop backend_container
 
 echo 'docker system prune'
 docker system prune
@@ -27,5 +27,5 @@ cd ../../backend/connectoon
 echo 'docker build -t backend .'
 docker build -t backend .
 
-echo 'docker run -it -p 0.0.0.0:8000:8000 --name backend_container backend:latest /bin/bash'
-docker run -it -p 0.0.0.0:8000:8000 --name backend_container backend:latest /bin/bash
+echo 'docker run -it --rm -d -p 0.0.0.0:8000:8000 --name backend_container backend:latest'
+docker run -it --rm -d -p 0.0.0.0:8000:8000 --name backend_container backend:latest
