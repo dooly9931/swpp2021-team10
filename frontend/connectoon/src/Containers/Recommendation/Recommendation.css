@@ -1,4 +1,4 @@
-.main-page {
+.recommendation-page {
   width: 1000px;
-  margin: 0px max(calc(50% - 500px), 0px) 40px max(calc(50% - 500px), 0px);
+  margin: 0px max(calc(50% - 500px), 10px) 40px;
 }
